@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>one page</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- <script src="scroll.js"></script> -->
+  </head>
+  <body>
+    <nav>
+      <a href="#s1">s1</a>
+      <a href="#s2">s2</a>
+      <a href="#s3">s3</a>
+    </nav>
+    <section id="s1">
+      <h1>section1</h1>
+    </section>
+    <section id="s2">
+      <h1>section2</h1>
+    </section>
+    <section id="s3">
+      <h1>section3</h1>
+    </section>
+
+    <script>
+      var link = document.querySelectorAll("nav a");
+
+      for (let i = 0; i < link.length; i++) {
+        link[i].addEventListener("click", function() {
+          var s = document.querySelector(link[i].hash).offsetTop;
+          // animateScrollTo(s);
+          $("html,body")
+            .stop()
+            .animate(
+              {
+                scrollTop: s + "px"
+              },
+              {
+                duration: 800,
+                complete: function() {}
+              }
+            );
+          console.log("s= ", s);
+        });
+      }
+    </script>
+
+    <script>
+      window.onload = function() {
+        var elm = "section";
+        $(elm).each(function(index) {
+          // 개별적으로 Wheel 이벤트 적용
+          $(this).on("mousewheel DOMMouseScroll", function(e) {
+            e.preventDefault();
+            var delta = 0;
+            if (!event) event = window.event;
+            if (event.wheelDelta) {
+              delta = event.wheelDelta / 120;
+              if (window.opera) delta = -delta;
+            } else if (event.detail) delta = -event.detail / 3;
+            var moveTop = $(window).scrollTop();
+            var elmSelecter = $(elm).eq(index);
+            // 마우스휠을 위에서 아래로
+            if (delta < 0) {
+              if ($(elmSelecter).next() != undefined) {
+                try {
+                  moveTop = $(elmSelecter)
+                    .next()
+                    .offset().top;
+                } catch (e) {}
+              }
+              // 마우스휠을 아래에서 위로
+            } else {
+              if ($(elmSelecter).prev() != undefined) {
+                try {
+                  moveTop = $(elmSelecter)
+                    .prev()
+                    .offset().top;
+                } catch (e) {}
+              }
+            }
+
+            // 화면 이동 0.8초(800)
+            $("html,body")
+              .stop()
+              .animate(
+                {
+                  scrollTop: moveTop + "px"
+                },
+                {
+                  duration: 800,
+                  complete: function() {}
+                }
+              );
+          });
+        });
+      };
+    </script>
+  </body>
+</html>

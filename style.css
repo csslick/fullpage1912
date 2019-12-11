@@ -1,0 +1,23 @@
+*{
+  margin: 0;padding: 0;
+  box-sizing: border-box;
+}
+html, body{ height: 100%;}
+section{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav{
+  position: fixed;
+}
+#s1{
+  background: #FEA47F;
+}
+#s2{
+  background: #55E6C1;
+}
+#s3{
+  background: #D6A2E8;
+}
