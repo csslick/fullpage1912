@@ -3,6 +3,7 @@
   box-sizing: border-box;
 }
 html, body{ height: 100%;}
+body { overflow: hidden; }
 section{
   height: 100%;
   display: flex;
